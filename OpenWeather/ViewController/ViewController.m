@@ -6,8 +6,6 @@
 //
 
 #import "ViewController.h"
-#import "WeatherDataManager.h"
-#import "WeatherViewModel.h"
 
 @interface ViewController ()
 

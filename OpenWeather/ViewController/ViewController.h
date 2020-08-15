@@ -6,6 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WeatherDataManager.h"
+#import "WeatherViewModel.h"
 
 @interface ViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
