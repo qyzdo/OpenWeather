@@ -9,7 +9,7 @@
 
 @implementation WeatherDataManager
 
-- (void)getWeather {
+- (void)getWeather:(void (^)(Weather* weather))callback {
       NSMutableString *urlString = [NSMutableString new];
     [urlString appendString:@"https://openweathermap.org/data/2.5/weather?q=London,uk&appid="];
     [urlString appendString:APIKey];
@@ -21,12 +21,15 @@
           
           if (!error && [httpResponse statusCode] == 200) {
               NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-              NSLog(@"%@", jsonString);
+                Weather *weather = [Weather fromJSON:jsonString encoding:NSUTF8StringEncoding error:&error];
+              callback(weather);
           } else {
-              NSLog(@"%@", httpResponse);
+              NSLog(@"DOWNLOADING DATA ERROR");
           }
       }];
       [dataTask resume];
 }
 
+
 @end
+

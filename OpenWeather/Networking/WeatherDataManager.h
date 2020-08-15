@@ -7,10 +7,12 @@
 
 #import <Foundation/Foundation.h>
 #import "ApiKey.h"
+#import "Weather.h"
 
 @interface WeatherDataManager : NSObject
 
-- (void)getWeather;
+
+- (void)getWeather :(void (^)(Weather* weather))callback;
 
 
 @end
