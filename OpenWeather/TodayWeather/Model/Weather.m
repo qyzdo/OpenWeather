@@ -162,7 +162,7 @@ NSString *_Nullable WeatherToJSON(Weather *weather, NSStringEncoding encoding, N
 - (NSDictionary *)JSONDictionary
 {
     id dict = [[self dictionaryWithValuesForKeys:Weather.properties.allValues] mutableCopy];
-
+    
     // Rewrite property names that differ in JSON
     for (id jsonName in Weather.properties) {
         id propertyName = Weather.properties[jsonName];
@@ -171,7 +171,7 @@ NSString *_Nullable WeatherToJSON(Weather *weather, NSStringEncoding encoding, N
             [dict removeObjectForKey:propertyName];
         }
     }
-
+    
     // Map values that need translation
     [dict addEntriesFromDictionary:@{
         @"coord": [_coord JSONDictionary],
@@ -181,7 +181,7 @@ NSString *_Nullable WeatherToJSON(Weather *weather, NSStringEncoding encoding, N
         @"clouds": [_clouds JSONDictionary],
         @"sys": [_sys JSONDictionary],
     }];
-
+    
     return dict;
 }
 
@@ -319,7 +319,7 @@ NSString *_Nullable WeatherToJSON(Weather *weather, NSStringEncoding encoding, N
 - (NSDictionary *)JSONDictionary
 {
     id dict = [[self dictionaryWithValuesForKeys:WeatherMain.properties.allValues] mutableCopy];
-
+    
     // Rewrite property names that differ in JSON
     for (id jsonName in WeatherMain.properties) {
         id propertyName = WeatherMain.properties[jsonName];
@@ -328,7 +328,7 @@ NSString *_Nullable WeatherToJSON(Weather *weather, NSStringEncoding encoding, N
             [dict removeObjectForKey:propertyName];
         }
     }
-
+    
     return dict;
 }
 @end
@@ -374,7 +374,7 @@ NSString *_Nullable WeatherToJSON(Weather *weather, NSStringEncoding encoding, N
 - (NSDictionary *)JSONDictionary
 {
     id dict = [[self dictionaryWithValuesForKeys:WeatherSys.properties.allValues] mutableCopy];
-
+    
     // Rewrite property names that differ in JSON
     for (id jsonName in WeatherSys.properties) {
         id propertyName = WeatherSys.properties[jsonName];
@@ -383,7 +383,7 @@ NSString *_Nullable WeatherToJSON(Weather *weather, NSStringEncoding encoding, N
             [dict removeObjectForKey:propertyName];
         }
     }
-
+    
     return dict;
 }
 @end
@@ -428,7 +428,7 @@ NSString *_Nullable WeatherToJSON(Weather *weather, NSStringEncoding encoding, N
 - (NSDictionary *)JSONDictionary
 {
     id dict = [[self dictionaryWithValuesForKeys:WeatherElement.properties.allValues] mutableCopy];
-
+    
     // Rewrite property names that differ in JSON
     for (id jsonName in WeatherElement.properties) {
         id propertyName = WeatherElement.properties[jsonName];
@@ -437,7 +437,7 @@ NSString *_Nullable WeatherToJSON(Weather *weather, NSStringEncoding encoding, N
             [dict removeObjectForKey:propertyName];
         }
     }
-
+    
     return dict;
 }
 @end

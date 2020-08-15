@@ -16,10 +16,10 @@
     _weather = weather;
     
     NSNumber *tempNumber = [NSNumber numberWithDouble:self.weather.main.temp];
-    _temperatureText = [tempNumber stringValue];
+    _temperatureText = [NSString stringWithFormat:@"Temperature: %@", [tempNumber stringValue]];
     
     NSNumber *feelsLikeNumber = [NSNumber numberWithDouble:self.weather.main.feelsLike];
-    _feelsLikeText = [feelsLikeNumber stringValue];
+    _feelsLikeText = [NSString stringWithFormat:@"Feels like temperature: %@", [feelsLikeNumber stringValue]]; 
     
     return self;
 }

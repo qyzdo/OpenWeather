@@ -12,7 +12,7 @@
 @interface WeatherDataManager : NSObject
 
 
-- (void)getWeather :(void (^)(Weather* weather))callback;
+- (void)getWeather: (void (^)(Weather* weather))callback;
 
 
 @end
