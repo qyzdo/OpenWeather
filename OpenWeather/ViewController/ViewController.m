@@ -7,6 +7,7 @@
 
 #import "ViewController.h"
 #import "WeatherDataManager.h"
+#import "WeatherViewModel.h"
 
 @interface ViewController ()
 
@@ -16,8 +17,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    __block WeatherViewModel *viewModel = [WeatherViewModel alloc];
+
     WeatherDataManager *api = [[WeatherDataManager alloc] init];
-    [api getWeather];
+    [api getWeather:^(Weather *weather) {
+        viewModel = [viewModel initWithWeather:weather];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.temperatureLabel.text = viewModel.temperatureText;
+            self.feelsLikeTemperatureLabel.text = viewModel.feelsLikeText;
+        });
+    }];
+    
 }
 
 
