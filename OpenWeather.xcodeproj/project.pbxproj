@@ -16,6 +16,7 @@
 		161A205C24E7EC1B00D3D8DE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A205B24E7EC1B00D3D8DE /* main.m */; };
 		161A206624E7EC1B00D3D8DE /* OpenWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A206524E7EC1B00D3D8DE /* OpenWeatherTests.m */; };
 		161A207124E7EC1B00D3D8DE /* OpenWeatherUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A207024E7EC1B00D3D8DE /* OpenWeatherUITests.m */; };
+		161A207F24E7EC5800D3D8DE /* WeatherDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A207E24E7EC5800D3D8DE /* WeatherDataManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,9 @@
 		161A206C24E7EC1B00D3D8DE /* OpenWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		161A207024E7EC1B00D3D8DE /* OpenWeatherUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenWeatherUITests.m; sourceTree = "<group>"; };
 		161A207224E7EC1B00D3D8DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		161A207E24E7EC5800D3D8DE /* WeatherDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherDataManager.m; sourceTree = "<group>"; };
+		161A208024E7EC6100D3D8DE /* WeatherDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherDataManager.h; sourceTree = "<group>"; };
+		161A208524E7EF5500D3D8DE /* ApiKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiKey.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,17 +108,18 @@
 		161A204824E7EC1B00D3D8DE /* OpenWeather */ = {
 			isa = PBXGroup;
 			children = (
+				161A208224E7ED3C00D3D8DE /* ViewController */,
+				161A208124E7ED3300D3D8DE /* Networking */,
 				161A204924E7EC1B00D3D8DE /* AppDelegate.h */,
 				161A204A24E7EC1B00D3D8DE /* AppDelegate.m */,
 				161A204C24E7EC1B00D3D8DE /* SceneDelegate.h */,
 				161A204D24E7EC1B00D3D8DE /* SceneDelegate.m */,
-				161A204F24E7EC1B00D3D8DE /* ViewController.h */,
-				161A205024E7EC1B00D3D8DE /* ViewController.m */,
 				161A205224E7EC1B00D3D8DE /* Main.storyboard */,
 				161A205524E7EC1B00D3D8DE /* Assets.xcassets */,
 				161A205724E7EC1B00D3D8DE /* LaunchScreen.storyboard */,
 				161A205A24E7EC1B00D3D8DE /* Info.plist */,
 				161A205B24E7EC1B00D3D8DE /* main.m */,
+				161A208524E7EF5500D3D8DE /* ApiKey.h */,
 			);
 			path = OpenWeather;
 			sourceTree = "<group>";
@@ -135,6 +140,24 @@
 				161A207224E7EC1B00D3D8DE /* Info.plist */,
 			);
 			path = OpenWeatherUITests;
+			sourceTree = "<group>";
+		};
+		161A208124E7ED3300D3D8DE /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				161A207E24E7EC5800D3D8DE /* WeatherDataManager.m */,
+				161A208024E7EC6100D3D8DE /* WeatherDataManager.h */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		161A208224E7ED3C00D3D8DE /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				161A204F24E7EC1B00D3D8DE /* ViewController.h */,
+				161A205024E7EC1B00D3D8DE /* ViewController.m */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				161A205124E7EC1B00D3D8DE /* ViewController.m in Sources */,
+				161A207F24E7EC5800D3D8DE /* WeatherDataManager.m in Sources */,
 				161A204B24E7EC1B00D3D8DE /* AppDelegate.m in Sources */,
 				161A205C24E7EC1B00D3D8DE /* main.m in Sources */,
 				161A204E24E7EC1B00D3D8DE /* SceneDelegate.m in Sources */,
