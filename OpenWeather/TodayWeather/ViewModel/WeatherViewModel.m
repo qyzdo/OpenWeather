@@ -14,9 +14,6 @@
     if(!self) return nil;
     
     [self fetchData:^(Weather *weather) {
-        int tempNumberInt = (int)weather.main.temp;
-        NSNumber *tempNumber = [NSNumber numberWithInt:tempNumberInt];
-        self->_temperatureText = [NSString stringWithFormat:@"Current temperature: %@°C", [tempNumber stringValue]];
         
         int feelsLikeNumberInt = (int)weather.main.feelsLike;
         NSNumber *feelsLikeNumber = [NSNumber numberWithInt:feelsLikeNumberInt];
@@ -29,6 +26,10 @@
         int maxTempNumberInt = (int)weather.main.tempMax;
         NSNumber *maxTempNumber = [NSNumber numberWithInt:maxTempNumberInt];
         self->_maxTemperatureText = [NSString stringWithFormat:@"Max: %@°C", [maxTempNumber stringValue]];
+        
+        int currentTempNumberInt = (int)weather.main.temp;
+        NSNumber *currentTempNumber = [NSNumber numberWithInt:currentTempNumberInt];
+        self->_currentTemperatureText = [NSString stringWithFormat:@"%@°C", [currentTempNumber stringValue]];
         
         if(weather.weather[0].identifier>=500) {
             UIImage *imageView = [UIImage imageNamed:@"10d"];

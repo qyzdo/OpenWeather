@@ -16,10 +16,10 @@
 - (void)fetchData: (void (^)(Weather* weather))callback;
 
 @property (nonatomic, weak) id <WeatherViewModelDelegate> delegate;
-@property (nonatomic, readonly) NSString *temperatureText;
 @property (nonatomic, readonly) NSString *feelsLikeText;
 @property (nonatomic, readonly) NSString *minTemperatureText;
 @property (nonatomic, readonly) NSString *maxTemperatureText;
+@property (nonatomic, readonly) NSString *currentTemperatureText;
 @property (nonatomic, readonly) UIImage *weatherImage;
 
 
