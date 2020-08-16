@@ -6,14 +6,16 @@
 //
 
 #import "Weather.h"
+#import "WeatherDataManager.h"
 #import <UIKit/UIKit.h>
+#import "WeatherViewModelDelegate.h"
 
 @interface WeatherViewModel : NSObject
 
-- (instancetype)initWithWeather:(Weather *)weather;
+- (instancetype)init;
+- (void)fetchData: (void (^)(Weather* weather))callback;
 
-@property (nonatomic, readonly) Weather *weather;
-
+@property (nonatomic, weak) id <WeatherViewModelDelegate> delegate;
 @property (nonatomic, readonly) NSString *temperatureText;
 @property (nonatomic, readonly) NSString *feelsLikeText;
 @property (nonatomic, readonly) NSString *minTemperatureText;

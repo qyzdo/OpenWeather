@@ -62,6 +62,7 @@
 		169A286224E80F6900E20553 /* Weather.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
 		169A286424E817AF00E20553 /* WeatherViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherViewModel.m; sourceTree = "<group>"; };
 		169A286724E817C000E20553 /* WeatherViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherViewModel.h; sourceTree = "<group>"; };
+		16B54FBA24E96EA2001D5600 /* WeatherViewModelDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherViewModelDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +196,7 @@
 		16EE77FB24E8A30300CFDBDB /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
+				16B54FBA24E96EA2001D5600 /* WeatherViewModelDelegate.h */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";

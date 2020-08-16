@@ -15,21 +15,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
-    __block WeatherViewModel *viewModel = [WeatherViewModel alloc];
-    
-    WeatherDataManager *api = [[WeatherDataManager alloc] init];
-    [api getWeather:^(Weather *weather) {
-        viewModel = [viewModel initWithWeather:weather];
-        NSLog(@"%@", viewModel);
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.weatherIcon.image = viewModel.weatherImage;
-            self.temperatureLabel.text = viewModel.temperatureText;
-            self.feelsLikeTemperatureLabel.text = viewModel.feelsLikeText;
-            self.minTemperatureLabel.text = viewModel.minTemperatureText;
-            self.maxTemperatureLabel.text = viewModel.maxTemperatureText;
-        });
-    }];
-    
+    self.viewModel = [[WeatherViewModel alloc] init];
+    self.viewModel.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -42,8 +29,6 @@
 
 - (void)setupView {
     UILayoutGuide * guide = self.view.safeAreaLayoutGuide;
-   
-    
     
     self.weatherIcon = [[UIImageView alloc] init];
     self.weatherIcon.translatesAutoresizingMaskIntoConstraints = false;
@@ -53,7 +38,7 @@
     [self.weatherIcon.leftAnchor constraintEqualToAnchor:guide.leftAnchor constant:55].active = true;
     [self.weatherIcon.rightAnchor constraintEqualToAnchor:guide.rightAnchor constant:-55].active = true;
     [self.weatherIcon.heightAnchor constraintEqualToConstant:150].active = true;
-
+    
     
     self.maxTemperatureLabel = [[UILabel alloc] init];
     self.maxTemperatureLabel.font = [UIFont systemFontOfSize:12];
@@ -76,9 +61,6 @@
     
     [self.stackView.topAnchor constraintEqualToAnchor:self.weatherIcon.bottomAnchor constant:-15].active = true;
     [self.stackView.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = true;
-
-  
-    
     
     
     self.temperatureLabel = [[UILabel alloc] init];
@@ -87,7 +69,7 @@
     [self.temperatureLabel.topAnchor constraintEqualToAnchor:self.stackView.bottomAnchor constant:85].active = true;
     [self.temperatureLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = true;
     [self.temperatureLabel.heightAnchor constraintEqualToConstant:50].active = true;
-
+    
     
     self.feelsLikeTemperatureLabel = [[UILabel alloc] init];
     self.feelsLikeTemperatureLabel.translatesAutoresizingMaskIntoConstraints = false;
@@ -95,9 +77,18 @@
     [self.feelsLikeTemperatureLabel.topAnchor constraintEqualToAnchor:self.temperatureLabel.bottomAnchor].active = true;
     [self.feelsLikeTemperatureLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = true;
     [self.feelsLikeTemperatureLabel.heightAnchor constraintEqualToConstant:50].active = true;
-
+    
 }
 
+- (void)didFinishFetchingData:(WeatherViewModel *)sender {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.weatherIcon.image = self.viewModel.weatherImage;
+        self.temperatureLabel.text = self.viewModel.temperatureText;
+        self.feelsLikeTemperatureLabel.text = self.viewModel.feelsLikeText;
+        self.minTemperatureLabel.text = self.viewModel.minTemperatureText;
+        self.maxTemperatureLabel.text = self.viewModel.maxTemperatureText;
+    });
+}
 
 
 @end

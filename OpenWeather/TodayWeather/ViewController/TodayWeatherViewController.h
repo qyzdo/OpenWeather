@@ -9,13 +9,15 @@
 #import "WeatherDataManager.h"
 #import "WeatherViewModel.h"
 
-@interface TodayWeatherViewController : UIViewController
+@interface TodayWeatherViewController : UIViewController <WeatherViewModelDelegate>
 @property (strong, nonatomic) IBOutlet UILabel *temperatureLabel;
 @property (strong, nonatomic) IBOutlet UILabel *feelsLikeTemperatureLabel;
 @property (strong, nonatomic) IBOutlet UILabel *minTemperatureLabel;
 @property (strong, nonatomic) IBOutlet UILabel *maxTemperatureLabel;
 @property (strong, nonatomic) IBOutlet UIStackView *stackView;
 @property (strong, nonatomic) IBOutlet UIImageView *weatherIcon;
+@property (nonatomic, strong) WeatherViewModel *viewModel;
+
 
 
 
