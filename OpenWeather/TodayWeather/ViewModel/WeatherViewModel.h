@@ -6,6 +6,7 @@
 //
 
 #import "Weather.h"
+#import <UIKit/UIKit.h>
 
 @interface WeatherViewModel : NSObject
 
@@ -15,5 +16,9 @@
 
 @property (nonatomic, readonly) NSString *temperatureText;
 @property (nonatomic, readonly) NSString *feelsLikeText;
+@property (nonatomic, readonly) NSString *minTemperatureText;
+@property (nonatomic, readonly) NSString *maxTemperatureText;
+@property (nonatomic, readonly) UIImage *weatherImage;
+
 
 @end

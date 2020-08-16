@@ -184,11 +184,19 @@
 		16B5F61524E89C8000F34F66 /* TodayWeather */ = {
 			isa = PBXGroup;
 			children = (
+				16EE77FB24E8A30300CFDBDB /* Delegate */,
 				169A286624E817B300E20553 /* ViewModel */,
 				169A286024E80F4900E20553 /* Model */,
 				161A208224E7ED3C00D3D8DE /* ViewController */,
 			);
 			path = TodayWeather;
+			sourceTree = "<group>";
+		};
+		16EE77FB24E8A30300CFDBDB /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Delegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
