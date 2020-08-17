@@ -43,9 +43,10 @@
 }
 
 - (void)fetchData: (void (^)(Weather* weather))callback {
-    WeatherDataManager *api = [[WeatherDataManager alloc] init];
-    [api getWeather:^(Weather *weather) {
+    TodayWeatherService *service = [TodayWeatherService new];
+    [service getTodayWeather:^(Weather *weather) {
         callback(weather);
     }];
+
 }
 @end

@@ -9,10 +9,10 @@
 #import "ApiKey.h"
 #import "Weather.h"
 
-@interface WeatherDataManager : NSObject
+@interface WeatherDataManager<ObjectType> : NSObject
 
 
-- (void)getWeather: (void (^)(Weather* weather))callback;
+- (void)getWeather: (NSURL*)url completion: (void (^)(NSString*))callback;
 
 
 @end

@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WeatherDataManager.h"
 #import "WeatherViewModel.h"
 
 @interface TodayWeatherViewController : UIViewController <WeatherViewModelDelegate>
