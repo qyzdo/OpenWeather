@@ -16,8 +16,6 @@
         
         if (!error && [httpResponse statusCode] == 200) {
             NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            id weather = [NSObject new];
-            weather = [Weather fromJSON:jsonString encoding:NSUTF8StringEncoding error:&error];
             callback(jsonString);
         } else {
             NSLog(@"DOWNLOADING DATA ERROR");

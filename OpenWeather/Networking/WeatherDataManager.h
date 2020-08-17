@@ -7,7 +7,6 @@
 
 #import <Foundation/Foundation.h>
 #import "ApiKey.h"
-#import "Weather.h"
 
 @interface WeatherDataManager<ObjectType> : NSObject
 
