@@ -6,6 +6,7 @@
 //
 
 #import "WeatherDataManager.h"
+#import "Weather.h"
 
 @interface TodayWeatherService : NSObject
 
