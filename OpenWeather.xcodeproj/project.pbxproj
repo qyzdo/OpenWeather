@@ -17,6 +17,8 @@
 		161A207124E7EC1B00D3D8DE /* OpenWeatherUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A207024E7EC1B00D3D8DE /* OpenWeatherUITests.m */; };
 		161A207F24E7EC5800D3D8DE /* WeatherDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A207E24E7EC5800D3D8DE /* WeatherDataManager.m */; };
 		164E132A24EAB80700AA1407 /* TodayWeatherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 164E132924EAB80700AA1407 /* TodayWeatherService.m */; };
+		164E133024EABE4300AA1407 /* WeatherForecastService.m in Sources */ = {isa = PBXBuildFile; fileRef = 164E132F24EABE4300AA1407 /* WeatherForecastService.m */; };
+		164E133524EAC04700AA1407 /* WeatherForecastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 164E133424EAC04700AA1407 /* WeatherForecastModel.m */; };
 		169A286324E80F6900E20553 /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 169A286224E80F6900E20553 /* Weather.m */; };
 		169A286524E817AF00E20553 /* WeatherViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 169A286424E817AF00E20553 /* WeatherViewModel.m */; };
 /* End PBXBuildFile section */
@@ -61,6 +63,10 @@
 		161A208524E7EF5500D3D8DE /* ApiKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiKey.h; sourceTree = "<group>"; };
 		164E132924EAB80700AA1407 /* TodayWeatherService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayWeatherService.m; sourceTree = "<group>"; };
 		164E132B24EAB81000AA1407 /* TodayWeatherService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayWeatherService.h; sourceTree = "<group>"; };
+		164E132F24EABE4300AA1407 /* WeatherForecastService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherForecastService.m; sourceTree = "<group>"; };
+		164E133124EABE5100AA1407 /* WeatherForecastService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherForecastService.h; sourceTree = "<group>"; };
+		164E133224EAC02E00AA1407 /* WeatherForecastModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherForecastModel.h; sourceTree = "<group>"; };
+		164E133424EAC04700AA1407 /* WeatherForecastModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherForecastModel.m; sourceTree = "<group>"; };
 		169A286124E80F5C00E20553 /* Weather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
 		169A286224E80F6900E20553 /* Weather.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Weather.m; sourceTree = "<group>"; };
 		169A286424E817AF00E20553 /* WeatherViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherViewModel.m; sourceTree = "<group>"; };
@@ -116,6 +122,7 @@
 		161A204824E7EC1B00D3D8DE /* OpenWeather */ = {
 			isa = PBXGroup;
 			children = (
+				164E132D24EABE2600AA1407 /* WeatherForecast */,
 				161A208124E7ED3300D3D8DE /* Networking */,
 				16B5F61524E89C8000F34F66 /* TodayWeather */,
 				161A204924E7EC1B00D3D8DE /* AppDelegate.h */,
@@ -174,6 +181,33 @@
 				164E132B24EAB81000AA1407 /* TodayWeatherService.h */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		164E132D24EABE2600AA1407 /* WeatherForecast */ = {
+			isa = PBXGroup;
+			children = (
+				164E133324EAC03500AA1407 /* Model */,
+				164E132E24EABE3100AA1407 /* Service */,
+			);
+			path = WeatherForecast;
+			sourceTree = "<group>";
+		};
+		164E132E24EABE3100AA1407 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				164E132F24EABE4300AA1407 /* WeatherForecastService.m */,
+				164E133124EABE5100AA1407 /* WeatherForecastService.h */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		164E133324EAC03500AA1407 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				164E133224EAC02E00AA1407 /* WeatherForecastModel.h */,
+				164E133424EAC04700AA1407 /* WeatherForecastModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		169A286024E80F4900E20553 /* Model */ = {
@@ -342,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				164E133024EABE4300AA1407 /* WeatherForecastService.m in Sources */,
 				169A286324E80F6900E20553 /* Weather.m in Sources */,
 				161A205124E7EC1B00D3D8DE /* TodayWeatherViewController.m in Sources */,
 				164E132A24EAB80700AA1407 /* TodayWeatherService.m in Sources */,
@@ -349,6 +384,7 @@
 				161A204B24E7EC1B00D3D8DE /* AppDelegate.m in Sources */,
 				161A205C24E7EC1B00D3D8DE /* main.m in Sources */,
 				169A286524E817AF00E20553 /* WeatherViewModel.m in Sources */,
+				164E133524EAC04700AA1407 /* WeatherForecastModel.m in Sources */,
 				161A204E24E7EC1B00D3D8DE /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
