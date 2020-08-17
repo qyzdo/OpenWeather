@@ -79,24 +79,6 @@ Weather *_Nullable WeatherFromJSON(NSString *json, NSStringEncoding encoding, NS
     return WeatherFromData([json dataUsingEncoding:encoding], error);
 }
 
-NSData *_Nullable WeatherToData(Weather *weather, NSError **error)
-{
-    @try {
-        id json = [NSDictionary alloc];
-        NSData *data = [NSJSONSerialization dataWithJSONObject:json options:kNilOptions error:error];
-        return *error ? nil : data;
-    } @catch (NSException *exception) {
-        *error = [NSError errorWithDomain:@"JSONSerialization" code:-1 userInfo:@{ @"exception": exception }];
-        return nil;
-    }
-}
-
-NSString *_Nullable WeatherToJSON(Weather *weather, NSStringEncoding encoding, NSError **error)
-{
-    NSData *data = WeatherToData(weather, error);
-    return data ? [[NSString alloc] initWithData:data encoding:encoding] : nil;
-}
-
 @implementation Weather
 + (NSDictionary<NSString *, NSString *> *)properties
 {
@@ -185,15 +167,6 @@ NSString *_Nullable WeatherToJSON(Weather *weather, NSStringEncoding encoding, N
     return dict;
 }
 
-- (NSData *_Nullable)toData:(NSError *_Nullable *)error
-{
-    return WeatherToData(self, error);
-}
-
-- (NSString *_Nullable)toJSON:(NSStringEncoding)encoding error:(NSError *_Nullable *)error
-{
-    return WeatherToJSON(self, encoding, error);
-}
 @end
 
 @implementation WeatherClouds
