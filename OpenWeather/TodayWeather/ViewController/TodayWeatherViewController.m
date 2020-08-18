@@ -17,6 +17,8 @@
     [self setupView];
     self.viewModel = [[WeatherViewModel alloc] init];
     self.viewModel.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -37,8 +39,7 @@
     self.weatherIcon.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview: self.weatherIcon];
     [self.weatherIcon.topAnchor constraintEqualToAnchor:guide.topAnchor].active = true;
-    [self.weatherIcon.leftAnchor constraintEqualToAnchor:guide.leftAnchor constant:55].active = true;
-    [self.weatherIcon.rightAnchor constraintEqualToAnchor:guide.rightAnchor constant:-55].active = true;
+    [self.weatherIcon.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = true;
     [self.weatherIcon.heightAnchor constraintEqualToConstant:200].active = true;
     [self.weatherIcon.widthAnchor constraintEqualToConstant:200].active = true;
     
@@ -80,6 +81,16 @@
     [self.feelsLikeTemperatureLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = true;
     [self.feelsLikeTemperatureLabel.heightAnchor constraintEqualToConstant:50].active = true;
     
+    self.tableView = [[UITableView alloc] init];
+    self.tableView.translatesAutoresizingMaskIntoConstraints = false;
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    [self.view addSubview:self.tableView];
+    [self.tableView.topAnchor constraintEqualToAnchor:self.feelsLikeTemperatureLabel.bottomAnchor constant:15].active = true;
+    [self.tableView.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor].active = true;
+    [self.tableView.leftAnchor constraintEqualToAnchor:guide.leftAnchor].active = true;
+    [self.tableView.rightAnchor constraintEqualToAnchor:guide.rightAnchor].active = true;
+
+    
 }
 
 - (void)didFinishFetchingData:(WeatherViewModel *)sender {
@@ -89,8 +100,23 @@
         self.minTemperatureLabel.text = self.viewModel.minTemperatureText;
         self.maxTemperatureLabel.text = self.viewModel.maxTemperatureText;
         self.currentTemperatureLabel.text = self.viewModel.currentTemperatureText;
+        [self.tableView reloadData];
     });
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellIdentifier = @"Cell";
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    cell.textLabel.text = @"OK";
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.viewModel.numberOfSections;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.viewModel.numberOfRows;
+}
 
 @end

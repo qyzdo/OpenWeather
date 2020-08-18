@@ -13,6 +13,9 @@
     self = [super init];
     if(!self) return nil;
     
+    self.numberOfRows = 1;
+    self.numberOfSections = 1;
+    
     [self fetchData:^(Weather *weather) {
         
         int feelsLikeNumberInt = (int)weather.main.feelsLike;

@@ -20,6 +20,8 @@
 @property (nonatomic, readonly) NSString *maxTemperatureText;
 @property (nonatomic, readonly) NSString *currentTemperatureText;
 @property (nonatomic, readonly) UIImage *weatherImage;
+@property (nonatomic) int numberOfSections;
+@property (nonatomic) int numberOfRows;
 
 
 @end

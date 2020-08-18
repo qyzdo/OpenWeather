@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "WeatherViewModel.h"
 
-@interface TodayWeatherViewController : UIViewController <WeatherViewModelDelegate>
+@interface TodayWeatherViewController : UIViewController <WeatherViewModelDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UILabel *feelsLikeTemperatureLabel;
 @property (strong, nonatomic) IBOutlet UILabel *minTemperatureLabel;
@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *currentTemperatureLabel;
 @property (strong, nonatomic) IBOutlet UIStackView *stackView;
 @property (strong, nonatomic) IBOutlet UIImageView *weatherIcon;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) WeatherViewModel *viewModel;
 
 -(void)setupView;
