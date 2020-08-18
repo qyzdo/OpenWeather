@@ -18,23 +18,23 @@
     
     [self fetchData:^(Weather *weather) {
         
-        int feelsLikeNumberInt = (int)weather.main.feelsLike;
+        int feelsLikeNumberInt = (int)weather.current.feelsLike;
         NSNumber *feelsLikeNumber = [NSNumber numberWithInt:feelsLikeNumberInt];
         self->_feelsLikeText = [NSString stringWithFormat:@"Feels like temperature: %@°C", [feelsLikeNumber stringValue]];
         
-        int minTempNumberInt = (int)weather.main.tempMin;
+        int minTempNumberInt = (int)weather.daily[0].temp.min;
         NSNumber *minTempNumber = [NSNumber numberWithInt:minTempNumberInt];
         self->_minTemperatureText = [NSString stringWithFormat:@"Min: %@°C", [minTempNumber stringValue]];
         
-        int maxTempNumberInt = (int)weather.main.tempMax;
+        int maxTempNumberInt = (int)weather.daily[0].temp.max;
         NSNumber *maxTempNumber = [NSNumber numberWithInt:maxTempNumberInt];
         self->_maxTemperatureText = [NSString stringWithFormat:@"Max: %@°C", [maxTempNumber stringValue]];
         
-        int currentTempNumberInt = (int)weather.main.temp;
+        int currentTempNumberInt = (int)weather.current.temp;
         NSNumber *currentTempNumber = [NSNumber numberWithInt:currentTempNumberInt];
         self->_currentTemperatureText = [NSString stringWithFormat:@"%@°C", [currentTempNumber stringValue]];
         
-        NSString *imageIcon = weather.weather[0].icon;
+        NSString *imageIcon = weather.current.weather[0].icon;
         UIImage *imageView = [UIImage imageNamed:imageIcon];
         self->_weatherImage = imageView;
         
@@ -44,7 +44,7 @@
 }
 
 - (void)fetchData: (void (^)(Weather* weather))callback {
-    TodayWeatherService *service = [TodayWeatherService new];
+    WeatherService *service = [WeatherService new];
     [service getTodayWeather:^(Weather *weather) {
         callback(weather);
     }];

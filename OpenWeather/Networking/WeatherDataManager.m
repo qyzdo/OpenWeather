@@ -18,6 +18,8 @@
             NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             callback(jsonString);
         } else {
+            NSLog(@"%@", url);
+            NSLog(@"%ld", (long)[httpResponse statusCode]);
             NSLog(@"DOWNLOADING DATA ERROR");
         }
     }];

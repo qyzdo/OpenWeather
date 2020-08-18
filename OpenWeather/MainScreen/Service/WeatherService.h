@@ -8,7 +8,7 @@
 #import "WeatherDataManager.h"
 #import "Weather.h"
 
-@interface TodayWeatherService : NSObject
+@interface WeatherService : NSObject
 
 - (void)getTodayWeather: (void (^)(Weather *weather))callback;
 

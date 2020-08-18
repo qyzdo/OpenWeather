@@ -1,25 +1,26 @@
 //
-//  NextDaysService.m
+//  TodayWeatherService.m
 //  OpenWeather
 //
 //  Created by Oskar Figiel on 17/08/2020.
 //
 
-#import "WeatherForecastService.h"
+#import "WeatherService.h"
 
-@implementation WeatherForecastService
+@implementation WeatherService
 
-- (void)getWeatherForecast:(void (^)(Forecast *))callback {
+- (void)getTodayWeather:(void (^)(Weather *weather))callback {
+    
     WeatherDataManager*api = [WeatherDataManager new];
         NSMutableString *urlString = [NSMutableString new];
-        [urlString appendString:@"https://openweathermap.org/data/2.5/forecast/hourly?q=London&appid="];
+        [urlString appendString:@"https://api.openweathermap.org/data/2.5/onecall?lat=51.389167&lon=22.186667&units=metric&appid="];
         [urlString appendString:APIKey];
         
         NSURL *url = [NSURL URLWithString:urlString];
     
     [api getWeather:url completion:^(NSString *jsonString) {
         NSError *error = nil;
-        Forecast *weather = [Forecast fromJSON:jsonString encoding:NSUTF8StringEncoding error:&error];
+        Weather *weather = [Weather fromJSON:jsonString encoding:NSUTF8StringEncoding error:&error];
         callback(weather);
     }];
 }

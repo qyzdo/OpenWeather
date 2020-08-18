@@ -19,22 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary *)JSONDictionary;
 @end
 
-@interface WeatherClouds (JSONConversion)
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
-- (NSDictionary *)JSONDictionary;
-@end
-
-@interface WeatherCoord (JSONConversion)
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
-- (NSDictionary *)JSONDictionary;
-@end
-
-@interface WeatherMain (JSONConversion)
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
-- (NSDictionary *)JSONDictionary;
-@end
-
-@interface WeatherSys (JSONConversion)
+@interface WeatherCurrent (JSONConversion)
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
 @end
@@ -44,9 +29,87 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary *)JSONDictionary;
 @end
 
-@interface WeatherWind (JSONConversion)
+@interface WeatherDaily (JSONConversion)
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 - (NSDictionary *)JSONDictionary;
+@end
+
+@interface WeatherFeelsLike (JSONConversion)
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+- (NSDictionary *)JSONDictionary;
+@end
+
+@interface WeatherTemp (JSONConversion)
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+- (NSDictionary *)JSONDictionary;
+@end
+
+@interface WeatherMinutely (JSONConversion)
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+- (NSDictionary *)JSONDictionary;
+@end
+
+// These enum-like reference types are needed so that enum
+// values can be contained by NSArray and NSDictionary.
+
+@implementation WeatherMain
++ (NSDictionary<NSString *, WeatherMain *> *)values
+{
+    static NSDictionary<NSString *, WeatherMain *> *values;
+    return values = values ? values : @{
+        @"Clear": [[WeatherMain alloc] initWithValue:@"Clear"],
+        @"Clouds": [[WeatherMain alloc] initWithValue:@"Clouds"],
+    };
+}
+
++ (WeatherMain *)clear { return WeatherMain.values[@"Clear"]; }
++ (WeatherMain *)clouds { return WeatherMain.values[@"Clouds"]; }
+
++ (instancetype _Nullable)withValue:(NSString *)value
+{
+    return WeatherMain.values[value];
+}
+
+- (instancetype)initWithValue:(NSString *)value
+{
+    if (self = [super init]) _value = value;
+    return self;
+}
+
+- (NSUInteger)hash { return _value.hash; }
+@end
+
+@implementation WeatherDescription
++ (NSDictionary<NSString *, WeatherDescription *> *)values
+{
+    static NSDictionary<NSString *, WeatherDescription *> *values;
+    return values = values ? values : @{
+        @"broken clouds": [[WeatherDescription alloc] initWithValue:@"broken clouds"],
+        @"clear sky": [[WeatherDescription alloc] initWithValue:@"clear sky"],
+        @"few clouds": [[WeatherDescription alloc] initWithValue:@"few clouds"],
+        @"overcast clouds": [[WeatherDescription alloc] initWithValue:@"overcast clouds"],
+        @"scattered clouds": [[WeatherDescription alloc] initWithValue:@"scattered clouds"],
+    };
+}
+
++ (WeatherDescription *)brokenClouds { return WeatherDescription.values[@"broken clouds"]; }
++ (WeatherDescription *)clearSky { return WeatherDescription.values[@"clear sky"]; }
++ (WeatherDescription *)fewClouds { return WeatherDescription.values[@"few clouds"]; }
++ (WeatherDescription *)overcastClouds { return WeatherDescription.values[@"overcast clouds"]; }
++ (WeatherDescription *)scatteredClouds { return WeatherDescription.values[@"scattered clouds"]; }
+
++ (instancetype _Nullable)withValue:(NSString *)value
+{
+    return WeatherDescription.values[value];
+}
+
+- (instancetype)initWithValue:(NSString *)value
+{
+    if (self = [super init]) _value = value;
+    return self;
+}
+
+- (NSUInteger)hash { return _value.hash; }
 @end
 
 static id map(id collection, id (^f)(id value)) {
@@ -84,19 +147,14 @@ Weather *_Nullable WeatherFromJSON(NSString *json, NSStringEncoding encoding, NS
 {
     static NSDictionary<NSString *, NSString *> *properties;
     return properties = properties ? properties : @{
-        @"coord": @"coord",
-        @"weather": @"weather",
-        @"base": @"base",
-        @"main": @"main",
-        @"visibility": @"visibility",
-        @"wind": @"wind",
-        @"clouds": @"clouds",
-        @"dt": @"dt",
-        @"sys": @"sys",
+        @"lat": @"lat",
+        @"lon": @"lon",
         @"timezone": @"timezone",
-        @"id": @"identifier",
-        @"name": @"name",
-        @"cod": @"cod",
+        @"timezone_offset": @"timezoneOffset",
+        @"current": @"current",
+        @"minutely": @"minutely",
+        @"hourly": @"hourly",
+        @"daily": @"daily",
     };
 }
 
@@ -119,12 +177,10 @@ Weather *_Nullable WeatherFromJSON(NSString *json, NSStringEncoding encoding, NS
 {
     if (self = [super init]) {
         [self setValuesForKeysWithDictionary:dict];
-        _coord = [WeatherCoord fromJSONDictionary:(id)_coord];
-        _weather = map(_weather, λ(id x, [WeatherElement fromJSONDictionary:x]));
-        _main = [WeatherMain fromJSONDictionary:(id)_main];
-        _wind = [WeatherWind fromJSONDictionary:(id)_wind];
-        _clouds = [WeatherClouds fromJSONDictionary:(id)_clouds];
-        _sys = [WeatherSys fromJSONDictionary:(id)_sys];
+        _current = [WeatherCurrent fromJSONDictionary:(id)_current];
+        _minutely = map(_minutely, λ(id x, [WeatherMinutely fromJSONDictionary:x]));
+        _hourly = map(_hourly, λ(id x, [WeatherCurrent fromJSONDictionary:x]));
+        _daily = map(_daily, λ(id x, [WeatherDaily fromJSONDictionary:x]));
     }
     return self;
 }
@@ -144,7 +200,7 @@ Weather *_Nullable WeatherFromJSON(NSString *json, NSStringEncoding encoding, NS
 - (NSDictionary *)JSONDictionary
 {
     id dict = [[self dictionaryWithValuesForKeys:Weather.properties.allValues] mutableCopy];
-    
+
     // Rewrite property names that differ in JSON
     for (id jsonName in Weather.properties) {
         id propertyName = Weather.properties[jsonName];
@@ -153,210 +209,87 @@ Weather *_Nullable WeatherFromJSON(NSString *json, NSStringEncoding encoding, NS
             [dict removeObjectForKey:propertyName];
         }
     }
-    
+
     // Map values that need translation
     [dict addEntriesFromDictionary:@{
-        @"coord": [_coord JSONDictionary],
-        @"weather": map(_weather, λ(id x, [x JSONDictionary])),
-        @"main": [_main JSONDictionary],
-        @"wind": [_wind JSONDictionary],
-        @"clouds": [_clouds JSONDictionary],
-        @"sys": [_sys JSONDictionary],
+        @"current": [_current JSONDictionary],
+        @"minutely": map(_minutely, λ(id x, [x JSONDictionary])),
+        @"hourly": map(_hourly, λ(id x, [x JSONDictionary])),
+        @"daily": map(_daily, λ(id x, [x JSONDictionary])),
     }];
-    
+
     return dict;
 }
 
 @end
 
-@implementation WeatherClouds
+@implementation WeatherCurrent
 + (NSDictionary<NSString *, NSString *> *)properties
 {
     static NSDictionary<NSString *, NSString *> *properties;
     return properties = properties ? properties : @{
-        @"all": @"all",
-    };
-}
-
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict
-{
-    return dict ? [[WeatherClouds alloc] initWithJSONDictionary:dict] : nil;
-}
-
-- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
-{
-    if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
-    }
-    return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = WeatherClouds.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
-}
-
-- (void)setNilValueForKey:(NSString *)key
-{
-    id resolved = WeatherClouds.properties[key];
-    if (resolved) [super setValue:@(0) forKey:resolved];
-}
-
-- (NSDictionary *)JSONDictionary
-{
-    return [self dictionaryWithValuesForKeys:WeatherClouds.properties.allValues];
-}
-@end
-
-@implementation WeatherCoord
-+ (NSDictionary<NSString *, NSString *> *)properties
-{
-    static NSDictionary<NSString *, NSString *> *properties;
-    return properties = properties ? properties : @{
-        @"lon": @"lon",
-        @"lat": @"lat",
-    };
-}
-
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict
-{
-    return dict ? [[WeatherCoord alloc] initWithJSONDictionary:dict] : nil;
-}
-
-- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
-{
-    if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
-    }
-    return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = WeatherCoord.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
-}
-
-- (void)setNilValueForKey:(NSString *)key
-{
-    id resolved = WeatherCoord.properties[key];
-    if (resolved) [super setValue:@(0) forKey:resolved];
-}
-
-- (NSDictionary *)JSONDictionary
-{
-    return [self dictionaryWithValuesForKeys:WeatherCoord.properties.allValues];
-}
-@end
-
-@implementation WeatherMain
-+ (NSDictionary<NSString *, NSString *> *)properties
-{
-    static NSDictionary<NSString *, NSString *> *properties;
-    return properties = properties ? properties : @{
-        @"temp": @"temp",
-        @"feels_like": @"feelsLike",
-        @"temp_min": @"tempMin",
-        @"temp_max": @"tempMax",
-        @"pressure": @"pressure",
-        @"humidity": @"humidity",
-    };
-}
-
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict
-{
-    return dict ? [[WeatherMain alloc] initWithJSONDictionary:dict] : nil;
-}
-
-- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
-{
-    if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
-    }
-    return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = WeatherMain.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
-}
-
-- (void)setNilValueForKey:(NSString *)key
-{
-    id resolved = WeatherMain.properties[key];
-    if (resolved) [super setValue:@(0) forKey:resolved];
-}
-
-- (NSDictionary *)JSONDictionary
-{
-    id dict = [[self dictionaryWithValuesForKeys:WeatherMain.properties.allValues] mutableCopy];
-    
-    // Rewrite property names that differ in JSON
-    for (id jsonName in WeatherMain.properties) {
-        id propertyName = WeatherMain.properties[jsonName];
-        if (![jsonName isEqualToString:propertyName]) {
-            dict[jsonName] = dict[propertyName];
-            [dict removeObjectForKey:propertyName];
-        }
-    }
-    
-    return dict;
-}
-@end
-
-@implementation WeatherSys
-+ (NSDictionary<NSString *, NSString *> *)properties
-{
-    static NSDictionary<NSString *, NSString *> *properties;
-    return properties = properties ? properties : @{
-        @"type": @"type",
-        @"id": @"identifier",
-        @"country": @"country",
+        @"dt": @"dt",
         @"sunrise": @"sunrise",
         @"sunset": @"sunset",
+        @"temp": @"temp",
+        @"feels_like": @"feelsLike",
+        @"pressure": @"pressure",
+        @"humidity": @"humidity",
+        @"dew_point": @"dewPoint",
+        @"uvi": @"uvi",
+        @"clouds": @"clouds",
+        @"visibility": @"visibility",
+        @"wind_speed": @"windSpeed",
+        @"wind_deg": @"windDeg",
+        @"weather": @"weather",
+        @"pop": @"pop",
     };
 }
 
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict
 {
-    return dict ? [[WeatherSys alloc] initWithJSONDictionary:dict] : nil;
+    return dict ? [[WeatherCurrent alloc] initWithJSONDictionary:dict] : nil;
 }
 
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
         [self setValuesForKeysWithDictionary:dict];
+        _weather = map(_weather, λ(id x, [WeatherElement fromJSONDictionary:x]));
     }
     return self;
 }
 
 - (void)setValue:(nullable id)value forKey:(NSString *)key
 {
-    id resolved = WeatherSys.properties[key];
+    id resolved = WeatherCurrent.properties[key];
     if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (void)setNilValueForKey:(NSString *)key
 {
-    id resolved = WeatherSys.properties[key];
+    id resolved = WeatherCurrent.properties[key];
     if (resolved) [super setValue:@(0) forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
 {
-    id dict = [[self dictionaryWithValuesForKeys:WeatherSys.properties.allValues] mutableCopy];
-    
+    id dict = [[self dictionaryWithValuesForKeys:WeatherCurrent.properties.allValues] mutableCopy];
+
     // Rewrite property names that differ in JSON
-    for (id jsonName in WeatherSys.properties) {
-        id propertyName = WeatherSys.properties[jsonName];
+    for (id jsonName in WeatherCurrent.properties) {
+        id propertyName = WeatherCurrent.properties[jsonName];
         if (![jsonName isEqualToString:propertyName]) {
             dict[jsonName] = dict[propertyName];
             [dict removeObjectForKey:propertyName];
         }
     }
-    
+
+    // Map values that need translation
+    [dict addEntriesFromDictionary:@{
+        @"weather": map(_weather, λ(id x, [x JSONDictionary])),
+    }];
+
     return dict;
 }
 @end
@@ -382,6 +315,8 @@ Weather *_Nullable WeatherFromJSON(NSString *json, NSStringEncoding encoding, NS
 {
     if (self = [super init]) {
         [self setValuesForKeysWithDictionary:dict];
+        _main = [WeatherMain withValue:(id)_main];
+        _theDescription = [WeatherDescription withValue:(id)_theDescription];
     }
     return self;
 }
@@ -401,7 +336,7 @@ Weather *_Nullable WeatherFromJSON(NSString *json, NSStringEncoding encoding, NS
 - (NSDictionary *)JSONDictionary
 {
     id dict = [[self dictionaryWithValuesForKeys:WeatherElement.properties.allValues] mutableCopy];
-    
+
     // Rewrite property names that differ in JSON
     for (id jsonName in WeatherElement.properties) {
         id propertyName = WeatherElement.properties[jsonName];
@@ -410,24 +345,106 @@ Weather *_Nullable WeatherFromJSON(NSString *json, NSStringEncoding encoding, NS
             [dict removeObjectForKey:propertyName];
         }
     }
-    
+
+    // Map values that need translation
+    [dict addEntriesFromDictionary:@{
+        @"main": [_main value],
+        @"description": [_theDescription value],
+    }];
+
     return dict;
 }
 @end
 
-@implementation WeatherWind
+@implementation WeatherDaily
 + (NSDictionary<NSString *, NSString *> *)properties
 {
     static NSDictionary<NSString *, NSString *> *properties;
     return properties = properties ? properties : @{
-        @"speed": @"speed",
-        @"deg": @"deg",
+        @"dt": @"dt",
+        @"sunrise": @"sunrise",
+        @"sunset": @"sunset",
+        @"temp": @"temp",
+        @"feels_like": @"feelsLike",
+        @"pressure": @"pressure",
+        @"humidity": @"humidity",
+        @"dew_point": @"dewPoint",
+        @"wind_speed": @"windSpeed",
+        @"wind_deg": @"windDeg",
+        @"weather": @"weather",
+        @"clouds": @"clouds",
+        @"pop": @"pop",
+        @"uvi": @"uvi",
     };
 }
 
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict
 {
-    return dict ? [[WeatherWind alloc] initWithJSONDictionary:dict] : nil;
+    return dict ? [[WeatherDaily alloc] initWithJSONDictionary:dict] : nil;
+}
+
+- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
+{
+    if (self = [super init]) {
+        [self setValuesForKeysWithDictionary:dict];
+        _temp = [WeatherTemp fromJSONDictionary:(id)_temp];
+        _feelsLike = [WeatherFeelsLike fromJSONDictionary:(id)_feelsLike];
+        _weather = map(_weather, λ(id x, [WeatherElement fromJSONDictionary:x]));
+    }
+    return self;
+}
+
+- (void)setValue:(nullable id)value forKey:(NSString *)key
+{
+    id resolved = WeatherDaily.properties[key];
+    if (resolved) [super setValue:value forKey:resolved];
+}
+
+- (void)setNilValueForKey:(NSString *)key
+{
+    id resolved = WeatherDaily.properties[key];
+    if (resolved) [super setValue:@(0) forKey:resolved];
+}
+
+- (NSDictionary *)JSONDictionary
+{
+    id dict = [[self dictionaryWithValuesForKeys:WeatherDaily.properties.allValues] mutableCopy];
+
+    // Rewrite property names that differ in JSON
+    for (id jsonName in WeatherDaily.properties) {
+        id propertyName = WeatherDaily.properties[jsonName];
+        if (![jsonName isEqualToString:propertyName]) {
+            dict[jsonName] = dict[propertyName];
+            [dict removeObjectForKey:propertyName];
+        }
+    }
+
+    // Map values that need translation
+    [dict addEntriesFromDictionary:@{
+        @"temp": [_temp JSONDictionary],
+        @"feels_like": [_feelsLike JSONDictionary],
+        @"weather": map(_weather, λ(id x, [x JSONDictionary])),
+    }];
+
+    return dict;
+}
+@end
+
+@implementation WeatherFeelsLike
++ (NSDictionary<NSString *, NSString *> *)properties
+{
+    static NSDictionary<NSString *, NSString *> *properties;
+    return properties = properties ? properties : @{
+        @"day": @"day",
+        @"night": @"night",
+        @"eve": @"eve",
+        @"morn": @"morn",
+    };
+}
+
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict
+{
+    return dict ? [[WeatherFeelsLike alloc] initWithJSONDictionary:dict] : nil;
 }
 
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
@@ -440,19 +457,105 @@ Weather *_Nullable WeatherFromJSON(NSString *json, NSStringEncoding encoding, NS
 
 - (void)setValue:(nullable id)value forKey:(NSString *)key
 {
-    id resolved = WeatherWind.properties[key];
+    id resolved = WeatherFeelsLike.properties[key];
     if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (void)setNilValueForKey:(NSString *)key
 {
-    id resolved = WeatherWind.properties[key];
+    id resolved = WeatherFeelsLike.properties[key];
     if (resolved) [super setValue:@(0) forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
 {
-    return [self dictionaryWithValuesForKeys:WeatherWind.properties.allValues];
+    return [self dictionaryWithValuesForKeys:WeatherFeelsLike.properties.allValues];
+}
+@end
+
+@implementation WeatherTemp
++ (NSDictionary<NSString *, NSString *> *)properties
+{
+    static NSDictionary<NSString *, NSString *> *properties;
+    return properties = properties ? properties : @{
+        @"day": @"day",
+        @"min": @"min",
+        @"max": @"max",
+        @"night": @"night",
+        @"eve": @"eve",
+        @"morn": @"morn",
+    };
+}
+
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict
+{
+    return dict ? [[WeatherTemp alloc] initWithJSONDictionary:dict] : nil;
+}
+
+- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
+{
+    if (self = [super init]) {
+        [self setValuesForKeysWithDictionary:dict];
+    }
+    return self;
+}
+
+- (void)setValue:(nullable id)value forKey:(NSString *)key
+{
+    id resolved = WeatherTemp.properties[key];
+    if (resolved) [super setValue:value forKey:resolved];
+}
+
+- (void)setNilValueForKey:(NSString *)key
+{
+    id resolved = WeatherTemp.properties[key];
+    if (resolved) [super setValue:@(0) forKey:resolved];
+}
+
+- (NSDictionary *)JSONDictionary
+{
+    return [self dictionaryWithValuesForKeys:WeatherTemp.properties.allValues];
+}
+@end
+
+@implementation WeatherMinutely
++ (NSDictionary<NSString *, NSString *> *)properties
+{
+    static NSDictionary<NSString *, NSString *> *properties;
+    return properties = properties ? properties : @{
+        @"dt": @"dt",
+        @"precipitation": @"precipitation",
+    };
+}
+
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict
+{
+    return dict ? [[WeatherMinutely alloc] initWithJSONDictionary:dict] : nil;
+}
+
+- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
+{
+    if (self = [super init]) {
+        [self setValuesForKeysWithDictionary:dict];
+    }
+    return self;
+}
+
+- (void)setValue:(nullable id)value forKey:(NSString *)key
+{
+    id resolved = WeatherMinutely.properties[key];
+    if (resolved) [super setValue:value forKey:resolved];
+}
+
+- (void)setNilValueForKey:(NSString *)key
+{
+    id resolved = WeatherMinutely.properties[key];
+    if (resolved) [super setValue:@(0) forKey:resolved];
+}
+
+- (NSDictionary *)JSONDictionary
+{
+    return [self dictionaryWithValuesForKeys:WeatherMinutely.properties.allValues];
 }
 @end
 

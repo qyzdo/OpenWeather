@@ -5,7 +5,7 @@
 //  Created by Oskar Figiel on 15/08/2020.
 //
 
-#import "TodayWeatherService.h"
+#import "WeatherService.h"
 #import <UIKit/UIKit.h>
 #import "WeatherViewModelDelegate.h"
 
