@@ -15,10 +15,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
-    self.weatherViewModel = [[WeatherViewModel alloc] init];
-    self.weatherViewModel.delegate = self;
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+
+    self.manager = [[CLLocationManager alloc] init];
+    self.manager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    self.manager.delegate = self;
+
+    
+    [self.manager requestWhenInUseAuthorization];
+    [self.manager requestLocation];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -33,7 +40,7 @@
     self.guide = self.view.safeAreaLayoutGuide;
     
     self.view.backgroundColor = UIColor.systemBackgroundColor;
-
+    
     self.weatherIcon = [[UIImageView alloc] init];
     self.weatherIcon.translatesAutoresizingMaskIntoConstraints = false;
     self.weatherIcon.contentMode = UIViewContentModeScaleAspectFit;
@@ -130,6 +137,21 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.weatherViewModel.numberOfRows;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    [manager stopUpdatingLocation];
+    manager.delegate = nil;
+    NSNumber *latNumber = [NSNumber numberWithDouble:locations.lastObject.coordinate.latitude];
+    NSString *lat = [[NSString alloc] initWithString:[latNumber stringValue]];
+    NSNumber *lonNumber = [NSNumber numberWithDouble:locations.lastObject.coordinate.longitude];
+    NSString *lon = [[NSString alloc] initWithString:[lonNumber stringValue]];
+    self.weatherViewModel = [[WeatherViewModel alloc] initWithLocation: lat : lon];
+    self.weatherViewModel.delegate = self;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"%@", error.localizedDescription);
 }
 
 @end

@@ -6,9 +6,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import "WeatherViewModel.h"
 
-@interface WeatherViewController : UIViewController <WeatherViewModelDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface WeatherViewController : UIViewController <WeatherViewModelDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 
 @property (strong, nonatomic) IBOutlet UILabel *feelsLikeTemperatureLabel;
 @property (strong, nonatomic) IBOutlet UILabel *minTemperatureLabel;
@@ -20,6 +21,8 @@
 @property (nonatomic, strong) WeatherViewModel *weatherViewModel;
 @property (nonatomic, strong) UIActivityIndicatorView *loadingAnimation;
 @property (nonatomic, strong) UILayoutGuide * guide;
+@property (nonatomic, strong) CLLocationManager * manager;
+
  
 -(void)setupView;
 -(void)setupTableView;
