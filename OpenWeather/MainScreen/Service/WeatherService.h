@@ -10,7 +10,7 @@
 
 @interface WeatherService : NSObject
 
-- (void)getTodayWeather: (void (^)(Weather *weather))callback;
+- (void)getTodayWeather:(NSString *)lat : (NSString *)lon completion: (void (^)(Weather *weather))callback;
 
 
 @end

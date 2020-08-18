@@ -45,7 +45,7 @@
 
 - (void)fetchData: (void (^)(Weather* weather))callback {
     WeatherService *service = [WeatherService new];
-    [service getTodayWeather:^(Weather *weather) {
+    [service getTodayWeather:(@"51.389167") :(@"22.186667") completion:^(Weather *weather) {
         callback(weather);
     }];
 
