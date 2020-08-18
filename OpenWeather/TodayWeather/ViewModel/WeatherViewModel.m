@@ -31,10 +31,9 @@
         NSNumber *currentTempNumber = [NSNumber numberWithInt:currentTempNumberInt];
         self->_currentTemperatureText = [NSString stringWithFormat:@"%@°C", [currentTempNumber stringValue]];
         
-        if(weather.weather[0].identifier>=500) {
-            UIImage *imageView = [UIImage imageNamed:@"10d"];
-            self->_weatherImage = imageView;
-        }
+        NSString *imageIcon = weather.weather[0].icon;
+        UIImage *imageView = [UIImage imageNamed:imageIcon];
+        self->_weatherImage = imageView;
         
         NSLog(@"%ld", (long)weather.weather[0].identifier);
         [self.delegate didFinishFetchingData:self];

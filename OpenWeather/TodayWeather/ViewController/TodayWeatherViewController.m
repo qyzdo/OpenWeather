@@ -37,7 +37,8 @@
     [self.weatherIcon.topAnchor constraintEqualToAnchor:guide.topAnchor].active = true;
     [self.weatherIcon.leftAnchor constraintEqualToAnchor:guide.leftAnchor constant:55].active = true;
     [self.weatherIcon.rightAnchor constraintEqualToAnchor:guide.rightAnchor constant:-55].active = true;
-    [self.weatherIcon.heightAnchor constraintEqualToConstant:100].active = true;
+    [self.weatherIcon.heightAnchor constraintEqualToConstant:200].active = true;
+    //[self.weatherIcon.widthAnchor constraintEqualToConstant:200].active = true;
     
     
     self.currentTemperatureLabel = [[UILabel alloc] init];
