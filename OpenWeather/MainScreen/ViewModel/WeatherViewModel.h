@@ -11,8 +11,7 @@
 
 @interface WeatherViewModel : NSObject
 
-- (instancetype)init;
-- (void)fetchData: (void (^)(Weather* weather))callback;
+- (instancetype)initWithLocation: (NSString*)lat : (NSString*)lon;
 
 @property (nonatomic, weak) id <WeatherViewModelDelegate> delegate;
 @property (nonatomic, readonly) NSString *feelsLikeText;

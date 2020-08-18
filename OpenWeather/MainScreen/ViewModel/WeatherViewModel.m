@@ -9,15 +9,15 @@
 
 @implementation WeatherViewModel
 
-- (instancetype)init {
+- (instancetype)initWithLocation:(NSString *)lat :(NSString *)lon {
     self = [super init];
     if(!self) return nil;
     
     self.numberOfRows = 15;
     self.numberOfSections = 1;
     
-    [self fetchData:^(Weather *weather) {
-        
+    WeatherService *service = [WeatherService new];
+    [service getTodayWeather:(lat) :(lon) completion:^(Weather *weather) {
         int feelsLikeNumberInt = (int)weather.current.feelsLike;
         NSNumber *feelsLikeNumber = [NSNumber numberWithInt:feelsLikeNumberInt];
         self->_feelsLikeText = [NSString stringWithFormat:@"Feels like temperature: %@°C", [feelsLikeNumber stringValue]];
@@ -40,14 +40,8 @@
         
         [self.delegate didFinishFetchingData:self];
     }];
+    
     return self;
 }
 
-- (void)fetchData: (void (^)(Weather* weather))callback {
-    WeatherService *service = [WeatherService new];
-    [service getTodayWeather:(@"51.389167") :(@"22.186667") completion:^(Weather *weather) {
-        callback(weather);
-    }];
-
-}
 @end
