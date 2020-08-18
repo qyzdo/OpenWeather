@@ -122,7 +122,7 @@
 		161A204824E7EC1B00D3D8DE /* OpenWeather */ = {
 			isa = PBXGroup;
 			children = (
-				1682B44124EC6805001F1741 /* Weather */,
+				1682B44124EC6805001F1741 /* MainScreen */,
 				161A208124E7ED3300D3D8DE /* Networking */,
 				161A204924E7EC1B00D3D8DE /* AppDelegate.h */,
 				161A204A24E7EC1B00D3D8DE /* AppDelegate.m */,
@@ -209,14 +209,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		1682B44124EC6805001F1741 /* Weather */ = {
+		1682B44124EC6805001F1741 /* MainScreen */ = {
 			isa = PBXGroup;
 			children = (
 				161A208224E7ED3C00D3D8DE /* ViewController */,
 				16B5F61524E89C8000F34F66 /* TodayWeather */,
 				164E132D24EABE2600AA1407 /* WeatherForecast */,
 			);
-			path = Weather;
+			path = MainScreen;
 			sourceTree = "<group>";
 		};
 		169A286024E80F4900E20553 /* Model */ = {
