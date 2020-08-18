@@ -15,8 +15,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupView];
-    self.viewModel = [[WeatherViewModel alloc] init];
-    self.viewModel.delegate = self;
+    self.weatherViewModel = [[WeatherViewModel alloc] init];
+    self.weatherViewModel.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 }
@@ -30,7 +30,7 @@
 }
 
 - (void)setupView {
-    UILayoutGuide * guide = self.view.safeAreaLayoutGuide;
+    self.guide = self.view.safeAreaLayoutGuide;
     
     self.view.backgroundColor = UIColor.systemBackgroundColor;
 
@@ -38,7 +38,7 @@
     self.weatherIcon.translatesAutoresizingMaskIntoConstraints = false;
     self.weatherIcon.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview: self.weatherIcon];
-    [self.weatherIcon.topAnchor constraintEqualToAnchor:guide.topAnchor].active = true;
+    [self.weatherIcon.topAnchor constraintEqualToAnchor:self.guide.topAnchor].active = true;
     [self.weatherIcon.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = true;
     [self.weatherIcon.heightAnchor constraintEqualToConstant:200].active = true;
     [self.weatherIcon.widthAnchor constraintEqualToConstant:200].active = true;
@@ -84,21 +84,35 @@
     self.tableView = [[UITableView alloc] init];
     self.tableView.translatesAutoresizingMaskIntoConstraints = false;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    
+    self.loadingAnimation = [[UIActivityIndicatorView alloc] init];
+    self.loadingAnimation.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
+    self.loadingAnimation.hidesWhenStopped = true;
+    self.loadingAnimation.translatesAutoresizingMaskIntoConstraints = false;
+    [self.loadingAnimation startAnimating];
+    [self.view addSubview:self.loadingAnimation];
+    
+    [self.loadingAnimation.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = true;
+    [self.loadingAnimation.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = true;
+}
+
+- (void)setupTableView {
     [self.view addSubview:self.tableView];
     [self.tableView.topAnchor constraintEqualToAnchor:self.feelsLikeTemperatureLabel.bottomAnchor constant:15].active = true;
-    [self.tableView.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor].active = true;
-    [self.tableView.leftAnchor constraintEqualToAnchor:guide.leftAnchor].active = true;
-    [self.tableView.rightAnchor constraintEqualToAnchor:guide.rightAnchor].active = true;
-    
+    [self.tableView.bottomAnchor constraintEqualToAnchor:self.guide.bottomAnchor].active = true;
+    [self.tableView.leftAnchor constraintEqualToAnchor:self.guide.leftAnchor].active = true;
+    [self.tableView.rightAnchor constraintEqualToAnchor:self.guide.rightAnchor].active = true;
 }
 
 - (void)didFinishFetchingData:(WeatherViewModel *)sender {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.weatherIcon.image = self.viewModel.weatherImage;
-        self.feelsLikeTemperatureLabel.text = self.viewModel.feelsLikeText;
-        self.minTemperatureLabel.text = self.viewModel.minTemperatureText;
-        self.maxTemperatureLabel.text = self.viewModel.maxTemperatureText;
-        self.currentTemperatureLabel.text = self.viewModel.currentTemperatureText;
+        [self setupTableView];
+        self.weatherIcon.image = self.weatherViewModel.weatherImage;
+        self.feelsLikeTemperatureLabel.text = self.weatherViewModel.feelsLikeText;
+        self.minTemperatureLabel.text = self.weatherViewModel.minTemperatureText;
+        self.maxTemperatureLabel.text = self.weatherViewModel.maxTemperatureText;
+        self.currentTemperatureLabel.text = self.weatherViewModel.currentTemperatureText;
+        [self.loadingAnimation stopAnimating];
         [self.tableView reloadData];
     });
 }
@@ -111,11 +125,11 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.viewModel.numberOfSections;
+    return self.weatherViewModel.numberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.viewModel.numberOfRows;
+    return self.weatherViewModel.numberOfRows;
 }
 
 @end

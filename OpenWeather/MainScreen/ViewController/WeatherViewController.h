@@ -17,9 +17,13 @@
 @property (strong, nonatomic) IBOutlet UIStackView *stackView;
 @property (strong, nonatomic) IBOutlet UIImageView *weatherIcon;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) WeatherViewModel *viewModel;
-
+@property (nonatomic, strong) WeatherViewModel *weatherViewModel;
+@property (nonatomic, strong) UIActivityIndicatorView *loadingAnimation;
+@property (nonatomic, strong) UILayoutGuide * guide;
+ 
 -(void)setupView;
+-(void)setupTableView;
+
 
 @end
 

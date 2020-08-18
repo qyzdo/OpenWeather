@@ -13,7 +13,7 @@
     self = [super init];
     if(!self) return nil;
     
-    self.numberOfRows = 1;
+    self.numberOfRows = 15;
     self.numberOfSections = 1;
     
     [self fetchData:^(Weather *weather) {
