@@ -38,7 +38,6 @@
         UIImage *imageView = [UIImage imageNamed:imageIcon];
         self->_weatherImage = imageView;
         
-        NSLog(@"%ld", (long)weather.weather[0].identifier);
         [self.delegate didFinishFetchingData:self];
     }];
     return self;
