@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		161A204B24E7EC1B00D3D8DE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A204A24E7EC1B00D3D8DE /* AppDelegate.m */; };
 		161A204E24E7EC1B00D3D8DE /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A204D24E7EC1B00D3D8DE /* SceneDelegate.m */; };
-		161A205124E7EC1B00D3D8DE /* TodayWeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A205024E7EC1B00D3D8DE /* TodayWeatherViewController.m */; };
+		161A205124E7EC1B00D3D8DE /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A205024E7EC1B00D3D8DE /* WeatherViewController.m */; };
 		161A205624E7EC1B00D3D8DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 161A205524E7EC1B00D3D8DE /* Assets.xcassets */; };
 		161A205924E7EC1B00D3D8DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 161A205724E7EC1B00D3D8DE /* LaunchScreen.storyboard */; };
 		161A205C24E7EC1B00D3D8DE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A205B24E7EC1B00D3D8DE /* main.m */; };
@@ -46,8 +46,8 @@
 		161A204A24E7EC1B00D3D8DE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		161A204C24E7EC1B00D3D8DE /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		161A204D24E7EC1B00D3D8DE /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		161A204F24E7EC1B00D3D8DE /* TodayWeatherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayWeatherViewController.h; sourceTree = "<group>"; };
-		161A205024E7EC1B00D3D8DE /* TodayWeatherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayWeatherViewController.m; sourceTree = "<group>"; };
+		161A204F24E7EC1B00D3D8DE /* WeatherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = "<group>"; };
+		161A205024E7EC1B00D3D8DE /* WeatherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = "<group>"; };
 		161A205524E7EC1B00D3D8DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		161A205824E7EC1B00D3D8DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		161A205A24E7EC1B00D3D8DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -122,9 +122,8 @@
 		161A204824E7EC1B00D3D8DE /* OpenWeather */ = {
 			isa = PBXGroup;
 			children = (
-				164E132D24EABE2600AA1407 /* WeatherForecast */,
+				1682B44124EC6805001F1741 /* Weather */,
 				161A208124E7ED3300D3D8DE /* Networking */,
-				16B5F61524E89C8000F34F66 /* TodayWeather */,
 				161A204924E7EC1B00D3D8DE /* AppDelegate.h */,
 				161A204A24E7EC1B00D3D8DE /* AppDelegate.m */,
 				161A204C24E7EC1B00D3D8DE /* SceneDelegate.h */,
@@ -168,8 +167,8 @@
 		161A208224E7ED3C00D3D8DE /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				161A204F24E7EC1B00D3D8DE /* TodayWeatherViewController.h */,
-				161A205024E7EC1B00D3D8DE /* TodayWeatherViewController.m */,
+				161A204F24E7EC1B00D3D8DE /* WeatherViewController.h */,
+				161A205024E7EC1B00D3D8DE /* WeatherViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -210,6 +209,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		1682B44124EC6805001F1741 /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				161A208224E7ED3C00D3D8DE /* ViewController */,
+				16B5F61524E89C8000F34F66 /* TodayWeather */,
+				164E132D24EABE2600AA1407 /* WeatherForecast */,
+			);
+			path = Weather;
+			sourceTree = "<group>";
+		};
 		169A286024E80F4900E20553 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,7 +244,6 @@
 				16EE77FB24E8A30300CFDBDB /* Delegate */,
 				169A286624E817B300E20553 /* ViewModel */,
 				169A286024E80F4900E20553 /* Model */,
-				161A208224E7ED3C00D3D8DE /* ViewController */,
 			);
 			path = TodayWeather;
 			sourceTree = "<group>";
@@ -378,7 +386,7 @@
 			files = (
 				164E133024EABE4300AA1407 /* WeatherForecastService.m in Sources */,
 				169A286324E80F6900E20553 /* Weather.m in Sources */,
-				161A205124E7EC1B00D3D8DE /* TodayWeatherViewController.m in Sources */,
+				161A205124E7EC1B00D3D8DE /* WeatherViewController.m in Sources */,
 				164E132A24EAB80700AA1407 /* TodayWeatherService.m in Sources */,
 				161A207F24E7EC5800D3D8DE /* WeatherDataManager.m in Sources */,
 				161A204B24E7EC1B00D3D8DE /* AppDelegate.m in Sources */,

@@ -5,12 +5,12 @@
 //  Created by Oskar Figiel on 15/08/2020.
 //
 
-#import "TodayWeatherViewController.h"
+#import "WeatherViewController.h"
 
-@interface TodayWeatherViewController ()
+@interface WeatherViewController ()
 @end
 
-@implementation TodayWeatherViewController
+@implementation WeatherViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,7 +89,6 @@
     [self.tableView.bottomAnchor constraintEqualToAnchor:guide.bottomAnchor].active = true;
     [self.tableView.leftAnchor constraintEqualToAnchor:guide.leftAnchor].active = true;
     [self.tableView.rightAnchor constraintEqualToAnchor:guide.rightAnchor].active = true;
-
     
 }
 

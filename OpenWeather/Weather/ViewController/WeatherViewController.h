@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "WeatherViewModel.h"
 
-@interface TodayWeatherViewController : UIViewController <WeatherViewModelDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface WeatherViewController : UIViewController <WeatherViewModelDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UILabel *feelsLikeTemperatureLabel;
 @property (strong, nonatomic) IBOutlet UILabel *minTemperatureLabel;

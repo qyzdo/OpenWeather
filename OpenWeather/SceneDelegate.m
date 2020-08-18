@@ -6,7 +6,7 @@
 //
 
 #import "SceneDelegate.h"
-#import "TodayWeatherViewController.h"
+#import "WeatherViewController.h"
 
 @interface SceneDelegate ()
 
@@ -19,7 +19,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.windowScene = (UIWindowScene *)scene;
     self.window.rootViewController = [[UINavigationController alloc]
-                                      initWithRootViewController:TodayWeatherViewController.new];
+                                      initWithRootViewController:WeatherViewController.new];
     [self.window makeKeyAndVisible];
 }
 
