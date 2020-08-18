@@ -30,6 +30,8 @@
 - (void)setupView {
     UILayoutGuide * guide = self.view.safeAreaLayoutGuide;
     
+    self.view.backgroundColor = UIColor.systemBackgroundColor;
+
     self.weatherIcon = [[UIImageView alloc] init];
     self.weatherIcon.translatesAutoresizingMaskIntoConstraints = false;
     self.weatherIcon.contentMode = UIViewContentModeScaleAspectFit;
@@ -38,7 +40,7 @@
     [self.weatherIcon.leftAnchor constraintEqualToAnchor:guide.leftAnchor constant:55].active = true;
     [self.weatherIcon.rightAnchor constraintEqualToAnchor:guide.rightAnchor constant:-55].active = true;
     [self.weatherIcon.heightAnchor constraintEqualToConstant:200].active = true;
-    //[self.weatherIcon.widthAnchor constraintEqualToConstant:200].active = true;
+    [self.weatherIcon.widthAnchor constraintEqualToConstant:200].active = true;
     
     
     self.currentTemperatureLabel = [[UILabel alloc] init];

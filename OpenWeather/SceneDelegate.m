@@ -20,7 +20,6 @@
     self.window.windowScene = (UIWindowScene *)scene;
     self.window.rootViewController = [[UINavigationController alloc]
                                       initWithRootViewController:TodayWeatherViewController.new];
-    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 }
 
