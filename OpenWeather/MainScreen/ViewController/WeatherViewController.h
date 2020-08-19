@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "WeatherViewModel.h"
+#import "DayWeatherTableViewCell.h"
 
 @interface WeatherViewController : UIViewController <WeatherViewModelDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
 

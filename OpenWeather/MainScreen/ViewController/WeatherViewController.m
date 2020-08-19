@@ -90,6 +90,7 @@
     
     self.tableView = [[UITableView alloc] init];
     self.tableView.translatesAutoresizingMaskIntoConstraints = false;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
     
     self.loadingAnimation = [[UIActivityIndicatorView alloc] init];
@@ -127,8 +128,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"Cell";
     [self.weatherViewModel setupCellNumber:indexPath.row];
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    cell.textLabel.text = self.weatherViewModel.dayCellText;
+    DayWeatherTableViewCell *cell = [[DayWeatherTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    cell.dayNameLabel.text = self.weatherViewModel.dayNameCellText;
+    cell.weatherImage.image = self.weatherViewModel.weatherCellImage;
+    cell.maxTemperatureLabel.text = self.weatherViewModel.maxTemperatureCellText;
+    cell.minTemperatureLabel.text = self.weatherViewModel.minTemperatureCellText;
+
     
     return cell;
 }

@@ -15,7 +15,17 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEEE"];
     
-    self->_dayCellText = [dateFormatter stringFromDate:lastUpdate];
+    self->_dayNameCellText = [dateFormatter stringFromDate:lastUpdate];
+    
+    NSString *imageIcon = self.weather.daily[indexPath].weather.firstObject.icon;
+    UIImage *imageView = [UIImage imageNamed:imageIcon];
+    self->_weatherCellImage = imageView;
+    
+    NSNumber *minTempNumber = [NSNumber numberWithInt:self.weather.daily[indexPath].temp.min];
+    self->_minTemperatureCellText = [NSString stringWithFormat:@"%@°C", [minTempNumber stringValue]];
+    
+    NSNumber *maxTempNumber = [NSNumber numberWithInt: self.weather.daily[indexPath].temp.max];
+    self->_maxTemperatureCellText = [NSString stringWithFormat:@"%@°C", [maxTempNumber stringValue]];
 }
 
 - (instancetype)initWithLocation:(NSString *)lat :(NSString *)lon {
