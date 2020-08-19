@@ -13,8 +13,7 @@
     NSInteger integer = self.weather.daily[indexPath].dt;
     NSDate *lastUpdate = [[NSDate alloc] initWithTimeIntervalSince1970:integer];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [dateFormatter setDateFormat:@"EEEE"];
     
     self->_dayCellText = [dateFormatter stringFromDate:lastUpdate];
 }
