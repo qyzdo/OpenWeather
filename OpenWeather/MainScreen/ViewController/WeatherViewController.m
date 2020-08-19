@@ -126,8 +126,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"Cell";
+    [self.weatherViewModel setupCellNumber:indexPath.row];
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    cell.textLabel.text = @"OK";
+    cell.textLabel.text = self.weatherViewModel.dayCellText;
+    
     return cell;
 }
 

@@ -12,15 +12,20 @@
 @interface WeatherViewModel : NSObject
 
 - (instancetype)initWithLocation: (NSString*)lat : (NSString*)lon;
+- (void)setupCellNumber: (NSInteger)indexPath;
+
 
 @property (nonatomic, weak) id <WeatherViewModelDelegate> delegate;
+@property (nonatomic) Weather* weather;
 @property (nonatomic, readonly) NSString *feelsLikeText;
 @property (nonatomic, readonly) NSString *minTemperatureText;
 @property (nonatomic, readonly) NSString *maxTemperatureText;
 @property (nonatomic, readonly) NSString *currentTemperatureText;
+@property (nonatomic, readonly) NSString *dayCellText;
 @property (nonatomic, readonly) UIImage *weatherImage;
-@property (nonatomic) int numberOfSections;
-@property (nonatomic) int numberOfRows;
+@property (nonatomic) NSUInteger numberOfSections;
+@property (nonatomic) NSUInteger numberOfRows;
+
 
 
 @end

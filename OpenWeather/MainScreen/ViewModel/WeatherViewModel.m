@@ -9,24 +9,35 @@
 
 @implementation WeatherViewModel
 
+- (void)setupCellNumber:(NSInteger)indexPath {
+    NSInteger integer = self.weather.daily[indexPath].dt;
+    NSDate *lastUpdate = [[NSDate alloc] initWithTimeIntervalSince1970:integer];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    
+    self->_dayCellText = [dateFormatter stringFromDate:lastUpdate];
+}
+
 - (instancetype)initWithLocation:(NSString *)lat :(NSString *)lon {
     self = [super init];
     if(!self) return nil;
     
-    self.numberOfRows = 15;
+    self.numberOfRows = 0;
     self.numberOfSections = 1;
     
     WeatherService *service = [WeatherService new];
     [service getTodayWeather:(lat) :(lon) completion:^(Weather *weather) {
+        self.weather = weather;
         int feelsLikeNumberInt = (int)weather.current.feelsLike;
         NSNumber *feelsLikeNumber = [NSNumber numberWithInt:feelsLikeNumberInt];
         self->_feelsLikeText = [NSString stringWithFormat:@"Feels like temperature: %@°C", [feelsLikeNumber stringValue]];
         
-        int minTempNumberInt = (int)weather.daily[0].temp.min;
+        int minTempNumberInt = (int)weather.daily.firstObject.temp.min;
         NSNumber *minTempNumber = [NSNumber numberWithInt:minTempNumberInt];
         self->_minTemperatureText = [NSString stringWithFormat:@"Min: %@°C", [minTempNumber stringValue]];
         
-        int maxTempNumberInt = (int)weather.daily[0].temp.max;
+        int maxTempNumberInt = (int)weather.daily.firstObject.temp.max;
         NSNumber *maxTempNumber = [NSNumber numberWithInt:maxTempNumberInt];
         self->_maxTemperatureText = [NSString stringWithFormat:@"Max: %@°C", [maxTempNumber stringValue]];
         
@@ -34,9 +45,11 @@
         NSNumber *currentTempNumber = [NSNumber numberWithInt:currentTempNumberInt];
         self->_currentTemperatureText = [NSString stringWithFormat:@"%@°C", [currentTempNumber stringValue]];
         
-        NSString *imageIcon = weather.current.weather[0].icon;
+        NSString *imageIcon = weather.current.weather.firstObject.icon;
         UIImage *imageView = [UIImage imageNamed:imageIcon];
         self->_weatherImage = imageView;
+        
+        self.numberOfRows = weather.daily.count;
         
         [self.delegate didFinishFetchingData:self];
     }];
