@@ -10,7 +10,7 @@
 #import "WeatherViewModel.h"
 #import "DayWeatherTableViewCell.h"
 
-@interface WeatherViewController : UIViewController <WeatherViewModelDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate>
+@interface WeatherViewController : UIViewController <WeatherViewModelDelegate, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) IBOutlet UILabel *feelsLikeTemperatureLabel;
 @property (strong, nonatomic) IBOutlet UILabel *minTemperatureLabel;
@@ -19,6 +19,8 @@
 @property (strong, nonatomic) IBOutlet UIStackView *stackView;
 @property (strong, nonatomic) IBOutlet UIImageView *weatherIcon;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+
 @property (nonatomic, strong) WeatherViewModel *weatherViewModel;
 @property (nonatomic, strong) UIActivityIndicatorView *loadingAnimation;
 @property (nonatomic, strong) UILayoutGuide * guide;
@@ -27,6 +29,7 @@
  
 -(void)setupView;
 -(void)setupTableView;
+-(void)setupCollectionView;
 
 
 @end
