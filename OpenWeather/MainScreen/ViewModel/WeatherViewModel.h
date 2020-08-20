@@ -30,8 +30,8 @@
 @property (nonatomic, readonly) UIImage *weatherColectionCellImage;
 
 
-@property (nonatomic) NSUInteger numberOfSections;
-@property (nonatomic) NSUInteger numberOfRows;
+@property (nonatomic) NSUInteger tableNumberOfSections;
+@property (nonatomic) NSUInteger collectionNumberOfRows;
 
 
 

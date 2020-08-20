@@ -32,8 +32,8 @@
     self = [super init];
     if(!self) return nil;
     
-    self.numberOfRows = 0;
-    self.numberOfSections = 1;
+    self.collectionNumberOfRows = 0;
+    self.tableNumberOfSections = 1;
     
     WeatherService *service = [WeatherService new];
     [service getTodayWeather:(lat) :(lon) completion:^(Weather *weather) {
@@ -55,7 +55,7 @@
         UIImage *imageView = [UIImage imageNamed:imageIconName];
         self->_weatherImage = imageView;
         
-        self.numberOfRows = weather.daily.count;
+        self.collectionNumberOfRows = weather.daily.count;
         
         [self.delegate didFinishFetchingData:self];
     }];

@@ -144,11 +144,11 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.weatherViewModel.numberOfSections;
+    return self.weatherViewModel.tableNumberOfSections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.weatherViewModel.numberOfRows;
+    return self.weatherViewModel.collectionNumberOfRows;
 }
 
 - (void)setupTableView {
