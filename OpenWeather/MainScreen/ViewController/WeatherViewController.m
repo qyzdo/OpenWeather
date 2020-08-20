@@ -100,8 +100,8 @@
     [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
     self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
     self.collectionView.translatesAutoresizingMaskIntoConstraints = false;
-    self.collectionView.backgroundColor = UIColor.redColor;
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"collectionViewCell"];
+    self.collectionView.backgroundColor = UIColor.systemBackgroundColor;
+    [self.collectionView registerClass:[HourWeatherCollectionViewCell class] forCellWithReuseIdentifier:@"collectionViewCell"];
     
     self.loadingAnimation = [[UIActivityIndicatorView alloc] init];
     self.loadingAnimation.activityIndicatorViewStyle = UIActivityIndicatorViewStyleLarge;
@@ -166,14 +166,16 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"collectionViewCell" forIndexPath:indexPath];
-    cell.backgroundColor=[UIColor greenColor];
+    HourWeatherCollectionViewCell *cell = (HourWeatherCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"collectionViewCell" forIndexPath:indexPath];
+    cell.timeLabel.text = @"15:00";
+    cell.temperatureLabel.text = @"16";
+    cell.weatherImage.image = [UIImage imageNamed:@"10d"];
  
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(collectionView.frame.size.width/6, collectionView.frame.size.width/3);
+    return CGSizeMake(collectionView.frame.size.width/6, 80);
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -185,7 +187,7 @@
     [self.collectionView.topAnchor constraintEqualToAnchor:self.feelsLikeTemperatureLabel.bottomAnchor constant:15].active = true;
     [self.collectionView.leftAnchor constraintEqualToAnchor:self.guide.leftAnchor].active = true;
     [self.collectionView.rightAnchor constraintEqualToAnchor:self.guide.rightAnchor].active = true;
-    [self.collectionView.heightAnchor constraintEqualToAnchor:self.collectionView.widthAnchor multiplier:0.4].active = true;
+    [self.collectionView.heightAnchor constraintEqualToConstant:90].active = true;
 }
 
 #pragma mark - LOCATION

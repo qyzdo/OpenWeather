@@ -17,6 +17,7 @@
 		161A206624E7EC1B00D3D8DE /* OpenWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A206524E7EC1B00D3D8DE /* OpenWeatherTests.m */; };
 		161A207124E7EC1B00D3D8DE /* OpenWeatherUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A207024E7EC1B00D3D8DE /* OpenWeatherUITests.m */; };
 		161A207F24E7EC5800D3D8DE /* WeatherDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 161A207E24E7EC5800D3D8DE /* WeatherDataManager.m */; };
+		1628436E24EF3A8D0080C445 /* HourWeatherCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1628436D24EF3A8D0080C445 /* HourWeatherCollectionViewCell.m */; };
 		164E132A24EAB80700AA1407 /* WeatherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 164E132924EAB80700AA1407 /* WeatherService.m */; };
 		169A286324E80F6900E20553 /* Weather.m in Sources */ = {isa = PBXBuildFile; fileRef = 169A286224E80F6900E20553 /* Weather.m */; };
 		169A286524E817AF00E20553 /* WeatherViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 169A286424E817AF00E20553 /* WeatherViewModel.m */; };
@@ -62,6 +63,8 @@
 		161A207E24E7EC5800D3D8DE /* WeatherDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherDataManager.m; sourceTree = "<group>"; };
 		161A208024E7EC6100D3D8DE /* WeatherDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherDataManager.h; sourceTree = "<group>"; };
 		161A208524E7EF5500D3D8DE /* ApiKey.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApiKey.h; sourceTree = "<group>"; };
+		1628436C24EF3A8D0080C445 /* HourWeatherCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HourWeatherCollectionViewCell.h; sourceTree = "<group>"; };
+		1628436D24EF3A8D0080C445 /* HourWeatherCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HourWeatherCollectionViewCell.m; sourceTree = "<group>"; };
 		164E132924EAB80700AA1407 /* WeatherService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherService.m; sourceTree = "<group>"; };
 		164E132B24EAB81000AA1407 /* WeatherService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherService.h; sourceTree = "<group>"; };
 		169A286124E80F5C00E20553 /* Weather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Weather.h; sourceTree = "<group>"; };
@@ -164,12 +167,22 @@
 		161A208224E7ED3C00D3D8DE /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1628436F24EF3BAE0080C445 /* Custom Cells */,
 				161A204F24E7EC1B00D3D8DE /* WeatherViewController.h */,
 				161A205024E7EC1B00D3D8DE /* WeatherViewController.m */,
-				16125F7B24ED9FCF00226A15 /* DayWeatherTableViewCell.h */,
-				16125F7C24ED9FCF00226A15 /* DayWeatherTableViewCell.m */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		1628436F24EF3BAE0080C445 /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				16125F7B24ED9FCF00226A15 /* DayWeatherTableViewCell.h */,
+				16125F7C24ED9FCF00226A15 /* DayWeatherTableViewCell.m */,
+				1628436C24EF3A8D0080C445 /* HourWeatherCollectionViewCell.h */,
+				1628436D24EF3A8D0080C445 /* HourWeatherCollectionViewCell.m */,
+			);
+			path = "Custom Cells";
 			sourceTree = "<group>";
 		};
 		164E132C24EABCFE00AA1407 /* Service */ = {
@@ -354,6 +367,7 @@
 				161A207F24E7EC5800D3D8DE /* WeatherDataManager.m in Sources */,
 				161A204B24E7EC1B00D3D8DE /* AppDelegate.m in Sources */,
 				161A205C24E7EC1B00D3D8DE /* main.m in Sources */,
+				1628436E24EF3A8D0080C445 /* HourWeatherCollectionViewCell.m in Sources */,
 				169A286524E817AF00E20553 /* WeatherViewModel.m in Sources */,
 				161A204E24E7EC1B00D3D8DE /* SceneDelegate.m in Sources */,
 			);
