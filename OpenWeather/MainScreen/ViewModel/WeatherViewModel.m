@@ -9,23 +9,23 @@
 
 @implementation WeatherViewModel
 
-- (void)setupCellNumber:(NSInteger)indexPath {
-    NSInteger integer = self.weather.daily[indexPath].dt;
+- (void)setupTableCell:(NSInteger)tableIndexPath {
+    NSInteger integer = self.weather.daily[tableIndexPath].dt;
     NSDate *lastUpdate = [[NSDate alloc] initWithTimeIntervalSince1970:integer];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEEE"];
     
-    self->_dayNameCellText = [dateFormatter stringFromDate:lastUpdate];
+    self->_dayNameTableCellText = [dateFormatter stringFromDate:lastUpdate];
     
-    NSString *imageIconName = self.weather.daily[indexPath].weather.firstObject.icon;
+    NSString *imageIconName = self.weather.daily[tableIndexPath].weather.firstObject.icon;
     UIImage *imageView = [UIImage imageNamed:imageIconName];
-    self->_weatherCellImage = imageView;
+    self->_weatherTableCellImage = imageView;
     
-    NSNumber *minTempNumber = [NSNumber numberWithInt:self.weather.daily[indexPath].temp.min];
-    self->_minTemperatureCellText = [NSString stringWithFormat:@"%@°C", [minTempNumber stringValue]];
+    NSNumber *minTempNumber = [NSNumber numberWithInt:self.weather.daily[tableIndexPath].temp.min];
+    self->_minTemperatureTableCellText = [NSString stringWithFormat:@"%@°C", [minTempNumber stringValue]];
     
-    NSNumber *maxTempNumber = [NSNumber numberWithInt: self.weather.daily[indexPath].temp.max];
-    self->_maxTemperatureCellText = [NSString stringWithFormat:@"%@°C", [maxTempNumber stringValue]];
+    NSNumber *maxTempNumber = [NSNumber numberWithInt: self.weather.daily[tableIndexPath].temp.max];
+    self->_maxTemperatureTableCellText = [NSString stringWithFormat:@"%@°C", [maxTempNumber stringValue]];
 }
 
 - (instancetype)initWithLocation:(NSString *)lat :(NSString *)lon {

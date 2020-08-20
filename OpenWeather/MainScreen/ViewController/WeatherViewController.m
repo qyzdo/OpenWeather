@@ -132,12 +132,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"tableViewCell";
-    [self.weatherViewModel setupCellNumber:indexPath.row];
+    [self.weatherViewModel setupTableCell:indexPath.row];
     DayWeatherTableViewCell *cell = [[DayWeatherTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    cell.dayNameLabel.text = self.weatherViewModel.dayNameCellText;
-    cell.weatherImage.image = self.weatherViewModel.weatherCellImage;
-    cell.maxTemperatureLabel.text = self.weatherViewModel.maxTemperatureCellText;
-    cell.minTemperatureLabel.text = self.weatherViewModel.minTemperatureCellText;
+    cell.dayNameLabel.text = self.weatherViewModel.dayNameTableCellText;
+    cell.weatherImage.image = self.weatherViewModel.weatherTableCellImage;
+    cell.maxTemperatureLabel.text = self.weatherViewModel.maxTemperatureTableCellText;
+    cell.minTemperatureLabel.text = self.weatherViewModel.minTemperatureTableCellText;
 
     return cell;
 }
