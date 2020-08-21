@@ -11,11 +11,11 @@
 
 - (void)setupTableCell:(NSInteger)tableIndexPath {
     NSInteger integer = self.weather.daily[tableIndexPath].dt;
-    NSDate *lastUpdate = [[NSDate alloc] initWithTimeIntervalSince1970:integer];
+    NSDate *nameOfDay = [[NSDate alloc] initWithTimeIntervalSince1970:integer];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEEE"];
     
-    self->_dayNameTableCellText = [dateFormatter stringFromDate:lastUpdate];
+    self->_dayNameTableCellText = [dateFormatter stringFromDate:nameOfDay];
     
     NSString *imageIconName = self.weather.daily[tableIndexPath].weather.firstObject.icon;
     UIImage *imageView = [UIImage imageNamed:imageIconName];
@@ -28,12 +28,30 @@
     self->_maxTemperatureTableCellText = [NSString stringWithFormat:@"%@°C", [maxTempNumber stringValue]];
 }
 
+- (void)setupCollectionCell:(NSInteger)collectionIndexPath {
+    NSInteger integer = self.weather.hourly[collectionIndexPath].dt;
+    NSDate *hour = [[NSDate alloc] initWithTimeIntervalSince1970:integer];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    self->_hourTableCellText = [dateFormatter stringFromDate:hour];
+
+    NSNumber *currentTemperature = [NSNumber numberWithInt:self.weather.hourly[collectionIndexPath].temp];
+    self->_currentTemperatureCollectionCellText = [NSString stringWithFormat:@"%@°C", [currentTemperature stringValue]];
+    
+    NSString *imageIconName = self.weather.hourly[collectionIndexPath].weather.firstObject.icon;
+    UIImage *imageView = [UIImage imageNamed:imageIconName];
+    self->_weatherColectionCellImage = imageView;
+}
+
 - (instancetype)initWithLocation:(NSString *)lat :(NSString *)lon {
     self = [super init];
     if(!self) return nil;
     
-    self.collectionNumberOfRows = 0;
+    self.tableNumberOfRows = 0;
     self.tableNumberOfSections = 1;
+    
+    self.collectionNumberOfRows = 0;
+    self.collectionNumberOfSections = 1;
     
     WeatherService *service = [WeatherService new];
     [service getTodayWeather:(lat) :(lon) completion:^(Weather *weather) {
@@ -55,7 +73,9 @@
         UIImage *imageView = [UIImage imageNamed:imageIconName];
         self->_weatherImage = imageView;
         
-        self.collectionNumberOfRows = weather.daily.count;
+        self.tableNumberOfRows = weather.daily.count;
+        self.collectionNumberOfRows = weather.hourly.count;
+
         
         [self.delegate didFinishFetchingData:self];
     }];

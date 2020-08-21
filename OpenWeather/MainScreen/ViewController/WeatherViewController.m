@@ -125,6 +125,7 @@
         self.currentTemperatureLabel.text = self.weatherViewModel.currentTemperatureText;
         [self.loadingAnimation stopAnimating];
         [self.tableView reloadData];
+        [self.collectionView reloadData];
     });
 }
 
@@ -148,12 +149,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.weatherViewModel.collectionNumberOfRows;
+    return self.weatherViewModel.tableNumberOfRows;
 }
 
 - (void)setupTableView {
     [self.view addSubview:self.tableView];
-    [self.tableView.topAnchor constraintEqualToAnchor:self.collectionView.bottomAnchor constant:15].active = true;
+    [self.tableView.topAnchor constraintEqualToAnchor:self.collectionView.bottomAnchor constant:5].active = true;
     [self.tableView.bottomAnchor constraintEqualToAnchor:self.guide.bottomAnchor].active = true;
     [self.tableView.leftAnchor constraintEqualToAnchor:self.guide.leftAnchor].active = true;
     [self.tableView.rightAnchor constraintEqualToAnchor:self.guide.rightAnchor].active = true;
@@ -162,14 +163,15 @@
 #pragma mark - COLLECTIONVIEW
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 50;
+    return self.weatherViewModel.collectionNumberOfRows;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self.weatherViewModel setupCollectionCell:indexPath.row];
     HourWeatherCollectionViewCell *cell = (HourWeatherCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"collectionViewCell" forIndexPath:indexPath];
-    cell.timeLabel.text = @"15:00";
-    cell.temperatureLabel.text = @"16";
-    cell.weatherImage.image = [UIImage imageNamed:@"10d"];
+    cell.timeLabel.text = self.weatherViewModel.hourTableCellText;
+    cell.temperatureLabel.text = self.weatherViewModel.currentTemperatureCollectionCellText;
+    cell.weatherImage.image = self.weatherViewModel.weatherColectionCellImage;
  
     return cell;
 }
@@ -179,15 +181,15 @@
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    return self.weatherViewModel.collectionNumberOfSections;
 }
 
 - (void)setupCollectionView {
     [self.view addSubview:self.collectionView];
-    [self.collectionView.topAnchor constraintEqualToAnchor:self.feelsLikeTemperatureLabel.bottomAnchor constant:15].active = true;
+    [self.collectionView.topAnchor constraintEqualToAnchor:self.feelsLikeTemperatureLabel.bottomAnchor constant:-5].active = true;
     [self.collectionView.leftAnchor constraintEqualToAnchor:self.guide.leftAnchor].active = true;
     [self.collectionView.rightAnchor constraintEqualToAnchor:self.guide.rightAnchor].active = true;
-    [self.collectionView.heightAnchor constraintEqualToConstant:90].active = true;
+    [self.collectionView.heightAnchor constraintEqualToConstant:105].active = true;
 }
 
 #pragma mark - LOCATION
