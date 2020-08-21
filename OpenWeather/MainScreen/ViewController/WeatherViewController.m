@@ -133,7 +133,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"tableViewCell";
-    [self.weatherViewModel setupTableCell:indexPath.row];
+    [self.weatherViewModel setupDailyForecastCell:indexPath.row];
     DayWeatherTableViewCell *cell = [[DayWeatherTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     cell.dayNameLabel.text = self.weatherViewModel.dayNameTableCellText;
     cell.weatherImage.image = self.weatherViewModel.weatherTableCellImage;
@@ -167,7 +167,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self.weatherViewModel setupCollectionCell:indexPath.row];
+    [self.weatherViewModel setupHourlyForecastCell:indexPath.row];
     HourWeatherCollectionViewCell *cell = (HourWeatherCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"collectionViewCell" forIndexPath:indexPath];
     cell.timeLabel.text = self.weatherViewModel.hourTableCellText;
     cell.temperatureLabel.text = self.weatherViewModel.currentTemperatureCollectionCellText;

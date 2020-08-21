@@ -12,8 +12,8 @@
 @interface WeatherViewModel : NSObject
 
 - (instancetype)initWithLocation: (NSString*)lat : (NSString*)lon;
-- (void)setupTableCell: (NSInteger)indexPath;
-- (void)setupCollectionCell: (NSInteger)indexPath;
+- (void)setupDailyForecastCell: (NSInteger)indexPath;
+- (void)setupHourlyForecastCell: (NSInteger)indexPath;
 
 
 

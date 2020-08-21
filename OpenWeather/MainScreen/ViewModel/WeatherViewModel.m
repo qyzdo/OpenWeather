@@ -9,7 +9,7 @@
 
 @implementation WeatherViewModel
 
-- (void)setupTableCell:(NSInteger)tableIndexPath {
+- (void)setupDailyForecastCell:(NSInteger)tableIndexPath {
     NSInteger integer = self.weather.daily[tableIndexPath].dt;
     NSDate *nameOfDay = [[NSDate alloc] initWithTimeIntervalSince1970:integer];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -28,7 +28,7 @@
     self->_maxTemperatureTableCellText = [NSString stringWithFormat:@"%@°C", [maxTempNumber stringValue]];
 }
 
-- (void)setupCollectionCell:(NSInteger)collectionIndexPath {
+- (void)setupHourlyForecastCell:(NSInteger)collectionIndexPath {
     NSInteger integer = self.weather.hourly[collectionIndexPath].dt;
     NSDate *hour = [[NSDate alloc] initWithTimeIntervalSince1970:integer];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
