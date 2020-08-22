@@ -1,3 +1,5 @@
+[![time tracker](https://wakatime.com/badge/github/qyzdo/OpenWeather.svg)](https://wakatime.com/badge/github/qyzdo/OpenWeather)
+
 # OpenWeather
 Application based on OpenWeather API, created in MVVM Architecture
 
